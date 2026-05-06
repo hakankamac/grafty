@@ -140,3 +140,174 @@ body {
     font-size: clamp(1.75rem, 5.4cqw, 3rem);
   }
 }
+
+/* ---------- About: Calm Luxury theme ---------- */
+.about-calm {
+  --about-surface: #f8f9fa;
+  --about-surface-container-lowest: #ffffff;
+  --about-surface-container-low: #f3f4f5;
+  --about-surface-container: #edeeef;
+  --about-surface-container-highest: #e1e3e4;
+  --about-on-surface: #191c1d;
+  --about-on-surface-variant: #3e4940;
+  --about-inverse-surface: #2e3132;
+  --about-outline: #6e7a70;
+  --about-outline-variant: #becabe;
+  --about-primary: #005f34;
+  --about-primary-container: #007a45;
+  --about-inverse-primary: #78da9b;
+  --about-tertiary: #972a28;
+  --about-gutter: clamp(24px, 4vw, 32px);
+  --about-container: 1120px;
+  font-family: var(--font-manrope), sans-serif;
+  color: var(--about-on-surface);
+  background: var(--about-surface);
+}
+
+.about-display {
+  font-size: clamp(3rem, 8vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+  font-weight: 800;
+}
+
+.about-headline-lg {
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  line-height: 1.16;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+.about-headline-md {
+  font-size: clamp(1.75rem, 4vw, 2rem);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.about-headline-sm {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+.about-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.67;
+  font-weight: 400;
+}
+
+.about-body-md {
+  font-size: 1rem;
+  line-height: 1.625;
+  font-weight: 400;
+}
+
+.about-label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.about-fade-in-up {
+  opacity: 0;
+  animation: aboutFadeInUp 0.8s ease-out forwards;
+}
+
+.about-fade-in {
+  opacity: 0;
+  animation: aboutFadeIn 1s ease-out forwards;
+}
+
+.about-stagger-1 { animation-delay: 0.1s; }
+.about-stagger-2 { animation-delay: 0.2s; }
+.about-stagger-3 { animation-delay: 0.3s; }
+.about-stagger-4 { animation-delay: 0.4s; }
+.about-stagger-5 { animation-delay: 0.5s; }
+.about-stagger-6 { animation-delay: 0.6s; }
+
+.about-holo-wrap {
+  perspective: 1000px;
+}
+
+.about-holo-card {
+  --bg-x: 50%;
+  --bg-y: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  background: var(--about-surface-container-lowest);
+  transition: transform 0.12s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.about-holo-card::before,
+.about-holo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.about-holo-card::before {
+  background: radial-gradient(
+    circle at var(--bg-x) var(--bg-y),
+    rgba(255, 255, 255, 0.46) 0%,
+    rgba(255, 255, 255, 0) 52%
+  );
+}
+
+.about-holo-card::after {
+  background: linear-gradient(
+    135deg,
+    rgba(120, 218, 155, 0.13) 0%,
+    rgba(0, 95, 52, 0.06) 28%,
+    rgba(151, 42, 40, 0.06) 52%,
+    rgba(0, 95, 52, 0.06) 76%,
+    rgba(120, 218, 155, 0.13) 100%
+  );
+  background-size: 200% 200%;
+  background-position: var(--bg-x) var(--bg-y);
+  mix-blend-mode: soft-light;
+}
+
+.about-holo-card:hover {
+  border-color: rgba(110, 122, 112, 0.36);
+  box-shadow: 0 25px 50px -18px rgba(0, 0, 0, 0.2);
+}
+
+.about-holo-card:hover::before,
+.about-holo-card:hover::after {
+  opacity: 1;
+}
+
+@keyframes aboutFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-fade-in-up,
+  .about-fade-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  .about-holo-card {
+    transform: none !important;
+  }
+}

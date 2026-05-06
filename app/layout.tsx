@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Archivo, Hanken_Grotesk, Instrument_Serif } from "next/font/google";
+import {
+  Archivo,
+  Hanken_Grotesk,
+  Instrument_Serif,
+  Manrope,
+} from "next/font/google";
 import { Header } from "@/components/Header";
 import { PageTransition } from "@/components/PageTransition";
 import "./globals.css";
@@ -26,6 +31,13 @@ const instrument = Instrument_Serif({
   display: "swap",
 });
 
+const manrope = Manrope({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-manrope",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Grafty — Modern Villa Housing",
   description:
@@ -40,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${archivo.variable} ${hanken.variable} ${instrument.variable}`}
+      className={`${archivo.variable} ${hanken.variable} ${instrument.variable} ${manrope.variable}`}
     >
       <body>
         <Header />
