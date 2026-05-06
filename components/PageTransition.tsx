@@ -48,7 +48,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
           >
             {/* Black curtain — sweeps in, holds, sweeps out */}
             <motion.div
-              className="absolute inset-0 bg-black"
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(72,60,42,0.28)_0%,rgba(28,26,21,0.22)_34%,transparent_62%),linear-gradient(135deg,#0b0b0c_0%,#151410_48%,#1d1a14_100%)]"
               initial={{ x: "-100%" }}
               animate={{ x: ["-100%", "0%", "0%", "100%"] }}
               transition={{
