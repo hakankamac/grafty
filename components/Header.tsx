@@ -3,20 +3,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NAV } from "@/lib/site";
 import { MenuOverlay } from "./MenuOverlay";
 
 export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrolled = () => setScrolled(window.scrollY > 24);
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolled);
+  }, []);
 
   return (
-    <header className="site-header">
-      <Link href="/" aria-label="Ana sayfa" className="header-logo inline-flex items-center">
+    <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
+      <Link href="/" aria-label="HKM Mimarlık ana sayfa" className="header-logo inline-flex items-center">
         <Image
           src="/logo.png"
-          alt="Logo"
+          alt="HKM Mimarlık logosu"
           width={180}
           height={52}
           className="h-10 md:h-12 w-auto object-contain"
@@ -25,7 +33,7 @@ export function Header() {
       </Link>
 
       <nav
-        aria-label="Primary"
+        aria-label="Ana navigasyon"
         className="header-nav justify-self-center rounded-full py-2.5 px-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.18)] max-[770px]:hidden"
       >
         <ul className="flex items-center gap-1 list-none m-0 p-0">
@@ -59,8 +67,8 @@ export function Header() {
       </nav>
 
       <div className="header-actions justify-self-end flex items-center gap-2.5">
-        <button
-          type="button"
+        <Link
+          href="/contact"
           className="bg-white/10 text-white rounded-full px-[22px] py-3 text-[14px] font-semibold tracking-[0.01em] inline-flex items-center gap-2 backdrop-blur-xl border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.18)] transition-[transform,background,border-color,box-shadow] duration-300 ease-smooth hover:-translate-y-px hover:bg-white/15 hover:border-white/40 hover:shadow-[0_12px_30px_rgba(0,0,0,0.28)] max-md:px-4 max-md:py-2.5 max-md:text-[13px]"
         >
           İLETİŞİM
@@ -68,7 +76,7 @@ export function Header() {
             aria-hidden="true"
             className="w-1.5 h-1.5 rounded-full bg-[#22d36a] shadow-[0_0_0_3px_rgba(34,211,106,0.25)]"
           />
-        </button>
+        </Link>
         <button
           type="button"
           onClick={() => setMenuOpen(true)}

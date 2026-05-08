@@ -1,61 +1,34 @@
 import { SiteFooter } from "@/components/SiteFooter";
 import { PROJECTS } from "@/lib/projects";
 
-const stats = [
-  { value: "6", label: "Seçili proje" },
-  { value: "3", label: "Ana uzmanlık" },
-  { value: "2023-26", label: "Portfolyo aralığı" },
-] as const;
-
 const featuredProject = PROJECTS.find((project) => project.featured) ?? PROJECTS[0];
 
 export default function ProjectPage() {
   return (
     <main className="project-calm min-h-screen overflow-hidden">
       <section
-        className="project-hero project-photo-hero relative flex min-h-[560px] items-end overflow-hidden px-[var(--project-gutter)] pb-16 pt-44 md:min-h-[620px] md:pb-24 md:pt-52"
+        className="project-hero project-photo-hero relative flex min-h-[520px] items-end overflow-hidden px-[var(--project-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48"
         style={{ backgroundImage: `url(${featuredProject.image})` }}
       >
-        <div className="absolute inset-0 bg-[var(--project-inverse-surface)]/55 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/24 to-black/28" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/60" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.08] mix-blend-overlay grain"
+          className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay grain"
         />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-[var(--project-container)] grid-cols-1 gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
-          <div className="project-fade-up">
-            <p className="project-label mb-5 text-white/75">
-              HKM Mimarlık Portfolyo
-            </p>
-            <h1 className="project-display max-w-[9ch] text-white title-shadow">
-              Projelerimiz
-            </h1>
-          </div>
-
-          <div className="project-fade-up project-delay-1 flex flex-col gap-8">
-            <p className="project-body-lg max-w-xl text-white">
-              Modern villa, lüks konut ve iç mekan projelerinde; arsa
-              potansiyelini, yaşam senaryosunu ve malzeme karakterini aynı
-              sakin mimari dilde buluşturuyoruz.
-            </p>
-
-            <div className="grid grid-cols-3 gap-3">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-[18px] border border-white/20 bg-white/12 p-4 text-white shadow-[0_18px_42px_-30px_rgba(0,0,0,0.55)] backdrop-blur-xl"
-                >
-                  <strong className="block text-2xl font-bold leading-none md:text-3xl">
-                    {stat.value}
-                  </strong>
-                  <span className="project-meta mt-2 block text-white/70">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="relative z-10 mx-auto w-full max-w-[var(--project-container)]">
+          <p className="project-label project-fade-up mb-5 text-[var(--project-inverse-primary)]">
+            Projelerimiz
+          </p>
+          <h1 className="project-display project-fade-up project-delay-1 max-w-[12ch] text-white title-shadow">
+            Projelerimiz
+          </h1>
+          <p className="project-body-lg project-fade-up project-delay-2 mt-6 max-w-2xl text-white">
+            Modern villa, lüks konut ve iç mekan projelerinde; arsa
+            potansiyelini, yaşam senaryosunu ve malzeme karakterini aynı sakin
+            mimari dilde buluşturuyoruz.
+          </p>
         </div>
       </section>
 

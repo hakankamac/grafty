@@ -12,7 +12,7 @@ export const NAV = [
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    label: "Projeler",
+    label: "Projelerimiz",
     href: "/project",
     preview:
       "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1600&q=80",

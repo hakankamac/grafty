@@ -7,7 +7,7 @@ const footerGroups = [
     links: [
       { label: "Ana Sayfa", href: "/" },
       { label: "Hakkımızda", href: "/about" },
-      { label: "İletişim", href: "mailto:info@hkmmimarlik.com" },
+      { label: "İletişim", href: "/contact" },
       { label: "Projelerimiz", href: "/project" },
     ],
   },

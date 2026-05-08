@@ -157,17 +157,17 @@ export function MenuOverlay({
                 <div className="text-[10px] uppercase tracking-[0.32em] text-white/40 mb-2">
                   İletişim
                 </div>
-                hello@grafty.studio
+                info@hkmmimarlik.com
                 <br />
-                +90 212 000 00 00
+                +90 554 754 76 24
               </div>
               <div>
                 <div className="text-[10px] uppercase tracking-[0.32em] text-white/40 mb-2">
                   Stüdyo
                 </div>
-                Karaköy, İstanbul
+                Gaziosmanpaşa
                 <br />
-                Mim Sin Caddesi 12
+                2 KOZA S N 147/5
               </div>
             </motion.div>
           </div>

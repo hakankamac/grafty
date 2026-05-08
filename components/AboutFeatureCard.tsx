@@ -3,12 +3,12 @@
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
 
 type IconName =
-  | "premium"
-  | "bank"
-  | "architecture"
-  | "handshake"
-  | "insights"
-  | "eco";
+  | "building"
+  | "interior"
+  | "urban"
+  | "planning"
+  | "modeling"
+  | "decor";
 
 type Props = {
   icon: IconName;
@@ -40,9 +40,9 @@ export function AboutFeatureCard({ icon, title, children, className = "" }: Prop
   }
 
   return (
-    <div className={`about-holo-wrap about-fade-in-up ${className}`}>
+    <div className={`about-holo-wrap about-fade-in-up h-full ${className}`}>
       <div
-        className="about-holo-card min-h-[248px] rounded-[2rem] border border-[var(--about-surface-container-highest)] p-8 md:p-10 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.28)]"
+        className="about-holo-card h-full min-h-[300px] rounded-[2rem] border border-[var(--about-surface-container-highest)] p-8 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.28)] max-[340px]:min-h-[358px] md:min-h-[316px] md:p-10"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ transform: "rotateX(0deg) rotateY(0deg)" } as CSSProperties}
@@ -65,47 +65,49 @@ export function AboutFeatureCard({ icon, title, children, className = "" }: Prop
 
 function Icon({ name }: { name: IconName }) {
   const paths: Record<IconName, ReactNode> = {
-    premium: (
+    building: (
       <>
-        <path d="M12 3l2.35 4.75 5.25.76-3.8 3.7.9 5.23L12 14.98 7.3 17.44l.9-5.23-3.8-3.7 5.25-.76L12 3z" />
-        <path d="M8.5 20.5h7" />
-      </>
-    ),
-    bank: (
-      <>
-        <path d="M4 10h16" />
-        <path d="M6 10v8M10 10v8M14 10v8M18 10v8" />
-        <path d="M3.5 18h17M5 21h14" />
-        <path d="M12 3.5 4.5 8h15L12 3.5z" />
-      </>
-    ),
-    architecture: (
-      <>
-        <path d="M4 20V8l8-4 8 4v12" />
+        <path d="M4 20V9l8-5 8 5v11" />
         <path d="M9 20v-7h6v7" />
-        <path d="M8 9h.01M12 9h.01M16 9h.01" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" />
       </>
     ),
-    handshake: (
+    interior: (
       <>
-        <path d="M8.5 12.5 11 15a2 2 0 0 0 2.8 0l.7-.7" />
-        <path d="M14 9.5 16.5 12l2.5-2.5" />
-        <path d="m5 13 3.5-3.5 3 3" />
-        <path d="M2.5 11.5 7 7l3 3M21.5 11.5 17 7l-3 3" />
+        <path d="M5 12V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4" />
+        <path d="M4 13h16v5H4z" />
+        <path d="M6 18v2M18 18v2" />
+        <path d="M8 9h8" />
       </>
     ),
-    insights: (
+    urban: (
       <>
-        <path d="M4 19V5" />
-        <path d="M4 19h16" />
-        <path d="m7 15 3.5-4 3 2.5L19 7" />
-        <path d="M17 7h2v2" />
+        <path d="M3 20h18" />
+        <path d="M5 20V8h5v12" />
+        <path d="M14 20V4h5v16" />
+        <path d="M7 11h1M7 14h1M16 8h1M16 11h1M16 14h1" />
       </>
     ),
-    eco: (
+    planning: (
       <>
-        <path d="M19 4c-7.5.3-12 4.8-12 10.5 0 3 2 5.5 5.5 5.5C18.5 20 21 12 19 4z" />
-        <path d="M7 18c2-4.5 5-7.5 10-10" />
+        <path d="M5 4h14v16H5z" />
+        <path d="M8 8h8M8 12h5M8 16h8" />
+        <path d="M17 3v3M7 3v3" />
+      </>
+    ),
+    modeling: (
+      <>
+        <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3z" />
+        <path d="M12 12 4 7.5M12 12l8-4.5M12 12v9" />
+        <path d="m8 5.5 8 4.5" />
+      </>
+    ),
+    decor: (
+      <>
+        <path d="M5 4h14v10H5z" />
+        <path d="M8 20h8" />
+        <path d="M12 14v6" />
+        <path d="m8 8 2.2 2.2L15.5 6" />
       </>
     ),
   };
