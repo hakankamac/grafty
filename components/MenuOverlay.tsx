@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { NAV } from "@/lib/site";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
@@ -17,6 +18,11 @@ export function MenuOverlay({
   onClose: () => void;
 }) {
   const [hoveredIdx, setHoveredIdx] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -31,7 +37,9 @@ export function MenuOverlay({
     };
   }, [open, onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && [
         // Right: image preview panel — slides in from right
@@ -197,6 +205,7 @@ export function MenuOverlay({
           </svg>
         </motion.button>,
       ]}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

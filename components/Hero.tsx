@@ -155,7 +155,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ delay: 0.42, duration: 1.05, ease: EASING }}
           >
-            Mimari · İç Tasarım · Peyzaj
+            İç Mekan · Mimari Proje - Yaşam Alanları
           </motion.p>
 
           <h1

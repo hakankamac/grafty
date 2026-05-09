@@ -7,6 +7,9 @@ const contactHeroImage =
 const mapHref =
   "https://www.google.com/maps/search/?api=1&query=2%20KOZA%20S%20N%20147%2F5%2C%20Gaziosmanpa%C5%9Fa";
 
+const mapEmbedHref =
+  "https://www.google.com/maps?q=2%20KOZA%20S%20N%20147%2F5%2C%20Gaziosmanpa%C5%9Fa&output=embed";
+
 const contactItems = [
   {
     type: "phone",
@@ -129,33 +132,18 @@ export default function ContactPage() {
             </ol>
           </article>
 
-          <a
-            href={mapHref}
-            target="_blank"
-            rel="noreferrer"
+          <div
             className="contact-map-card group"
             aria-label="Google Maps üzerinde HKM Mimarlık konumunu aç"
           >
-            <div>
-              <p className="contact-label text-[var(--contact-inverse-primary)]">
-                Konum
-              </p>
-              <h2 className="contact-headline-lg mt-4 text-white">
-                Gaziosmanpaşa ofisimize yol tarifi alın.
-              </h2>
-              <p className="contact-body-md mt-5 max-w-xl text-white/72">
-                2 KOZA S N 147/5, Gaziosmanpaşa adresi için Google Maps
-                bağlantısı yeni sekmede açılır.
-              </p>
-            </div>
-
-            <span className="contact-map-action">
-              Google Maps'te Aç
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-                <path d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </span>
-          </a>
+            <iframe
+              title="HKM Mimarlık Google Maps konumu"
+              src={mapEmbedHref}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="contact-map-frame"
+            />
+          </div>
         </div>
       </section>
 

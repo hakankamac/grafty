@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { NAV } from "@/lib/site";
+import { PAGE_TRANSITIONS } from "@/lib/site";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 const DURATION = 1.5;
@@ -26,13 +26,13 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       firstMount.current = false;
       return;
     }
-    const idx = NAV.findIndex((n) => n.href === pathname);
+    const idx = PAGE_TRANSITIONS.findIndex((n) => n.href === pathname);
     if (idx === -1) return;
     setPayload({
       id: Date.now(),
-      label: NAV[idx].label,
+      label: PAGE_TRANSITIONS[idx].label,
       index: idx + 1,
-      total: NAV.length,
+      total: PAGE_TRANSITIONS.length,
     });
   }, [pathname]);
 
@@ -48,7 +48,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
           >
             {/* Black curtain — sweeps in, holds, sweeps out */}
             <motion.div
-              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(72,60,42,0.28)_0%,rgba(28,26,21,0.22)_34%,transparent_62%),linear-gradient(135deg,#0b0b0c_0%,#151410_48%,#1d1a14_100%)]"
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(120,218,155,0.18)_0%,rgba(31,58,41,0.2)_36%,transparent_64%),linear-gradient(135deg,#06140d_0%,#10281a_48%,#1f3a29_100%)]"
               initial={{ x: "-100%" }}
               animate={{ x: ["-100%", "0%", "0%", "100%"] }}
               transition={{
