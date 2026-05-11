@@ -27,7 +27,7 @@ export function Header() {
           alt="HKM Mimarlık logosu"
           width={180}
           height={52}
-          className="h-10 md:h-12 w-auto object-contain"
+          className="h-8 md:h-12 w-auto object-contain"
           priority
         />
       </Link>
@@ -66,10 +66,10 @@ export function Header() {
         </ul>
       </nav>
 
-      <div className="header-actions justify-self-end flex items-center gap-2.5">
+      <div className="header-actions justify-self-end flex items-center gap-2 md:gap-2.5">
         <Link
           href="/contact"
-          className="bg-white/10 text-white rounded-full px-[22px] py-3 text-[14px] font-semibold tracking-[0.01em] inline-flex items-center gap-2 backdrop-blur-xl border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.18)] transition-[transform,background,border-color,box-shadow] duration-300 ease-smooth hover:-translate-y-px hover:bg-white/15 hover:border-white/40 hover:shadow-[0_12px_30px_rgba(0,0,0,0.28)] max-md:px-4 max-md:py-2.5 max-md:text-[13px]"
+          className="mobile-contact-link bg-white/10 text-white rounded-full px-[22px] py-3 text-[14px] font-semibold tracking-[0.01em] inline-flex items-center gap-2 backdrop-blur-xl border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.18)] transition-[transform,background,border-color,box-shadow] duration-300 ease-smooth hover:-translate-y-px hover:bg-white/15 hover:border-white/40 hover:shadow-[0_12px_30px_rgba(0,0,0,0.28)] max-md:px-3 max-md:py-2 max-md:text-[12px]"
         >
           İLETİŞİM
           <span
@@ -82,7 +82,7 @@ export function Header() {
           onClick={() => setMenuOpen(true)}
           aria-label="Menüyü aç"
           aria-expanded={menuOpen}
-          className="w-11 h-11 rounded-full bg-white/10 text-white grid place-items-center backdrop-blur-xl border border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.18)] transition-[transform,background,border-color] duration-300 ease-smooth hover:rotate-90 hover:bg-white/15 hover:border-white/35"
+          className="w-11 h-11 rounded-full bg-white/10 text-white grid place-items-center backdrop-blur-xl border border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.18)] transition-[transform,background,border-color] duration-300 ease-smooth hover:rotate-90 hover:bg-white/15 hover:border-white/35 max-md:fixed max-md:right-4 max-md:top-5 max-md:z-[70] max-md:h-10 max-md:w-10 max-md:bg-white/20"
         >
           <svg
             viewBox="0 0 24 24"

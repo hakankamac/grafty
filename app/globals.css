@@ -57,22 +57,56 @@ body {
 
 @media (max-width: 768px) {
   .site-header {
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "logo actions"
-      "nav nav";
-    padding: 22px 24px;
-    gap: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px;
+    gap: 12px;
   }
-  .site-header .header-logo { grid-area: logo; }
+
+  .site-header .header-logo {
+    min-width: 0;
+  }
+
   .site-header .header-nav {
-    grid-area: nav;
-    justify-self: stretch;
+    display: none;
     overflow-x: auto;
     scrollbar-width: none;
   }
   .site-header .header-nav::-webkit-scrollbar { display: none; }
-  .site-header .header-actions { grid-area: actions; }
+  .site-header .header-actions {
+    flex: 0 0 auto;
+  }
+
+  .site-header .header-actions button {
+    display: grid !important;
+    position: fixed;
+    top: 20px;
+    right: 16px;
+    z-index: 70;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .mobile-contact-link {
+    display: none;
+  }
+
+  .grain {
+    display: none;
+  }
+
+  .hero-kicker::before {
+    display: none;
+  }
+
+  .site-header,
+  .site-header-scrolled,
+  .header-actions a,
+  .header-actions button {
+    backdrop-filter: none;
+  }
 }
 
 /* ---------- Hero shared ---------- */

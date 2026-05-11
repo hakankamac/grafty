@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SLIDES, EASING } from "@/lib/site";
@@ -10,14 +11,18 @@ const pad = (n: number) => String(n).padStart(2, "0");
 export function Hero() {
   const [index, setIndex] = useState(0);
   const [tick, setTick] = useState(0);
+  const [leanMotion, setLeanMotion] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isInitialSlide = tick === 0;
 
   useEffect(() => {
-    SLIDES.forEach((s) => {
-      const img = new window.Image();
-      img.src = s.src;
-    });
+    const query = window.matchMedia(
+      "(max-width: 768px), (prefers-reduced-motion: reduce)"
+    );
+    const update = () => setLeanMotion(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export function Hero() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [tick]);
+  }, []);
 
   const jump = (delta: number) => {
     setIndex((i) => (i + delta + SLIDES.length) % SLIDES.length);
@@ -38,29 +43,47 @@ export function Hero() {
   return (
     <section
       aria-label="Modern villa housing hero"
-      className="relative w-screen h-screen min-h-[640px] overflow-hidden isolate"
+      className="relative w-screen h-[100svh] min-h-[560px] overflow-hidden isolate md:min-h-[640px]"
     >
       {/* Layered backgrounds — full-bleed crossfade + Ken Burns */}
       <div aria-hidden="true" className="absolute inset-0 -z-30 bg-black">
         <AnimatePresence>
           <motion.div
             key={index}
-            className="absolute inset-0 bg-cover bg-center will-change-[opacity,filter,transform]"
-            style={{ backgroundImage: `url(${SLIDES[index].src})` }}
+            className="absolute inset-0 will-change-[opacity,transform]"
             initial={
-              isInitialSlide
+              isInitialSlide || leanMotion
                 ? { opacity: 1, scale: 1.08, x: 0, filter: "blur(0px)" }
-                : { opacity: 0, scale: 1.08, x: 34, filter: "blur(12px)" }
+                : { opacity: 0, scale: 1.06, x: 22, filter: "blur(4px)" }
             }
-            animate={{ opacity: 1, scale: 1.16, x: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 1.12, x: -22, filter: "blur(6px)" }}
-            transition={{
-              opacity: { duration: 1.05, ease: EASING },
-              x: { duration: 1.35, ease: EASING },
-              filter: { duration: 1.15, ease: EASING },
-              scale: { duration: 9, ease: "easeOut" },
+            animate={{
+              opacity: 1,
+              scale: leanMotion ? 1.08 : 1.13,
+              x: 0,
+              filter: "blur(0px)",
             }}
-          />
+            exit={{
+              opacity: 0,
+              scale: 1.1,
+              x: leanMotion ? 0 : -12,
+              filter: "blur(0px)",
+            }}
+            transition={{
+              opacity: { duration: leanMotion ? 0.45 : 0.8, ease: EASING },
+              x: { duration: leanMotion ? 0.45 : 0.85, ease: EASING },
+              filter: { duration: leanMotion ? 0 : 0.6, ease: EASING },
+              scale: { duration: leanMotion ? 0.45 : 8, ease: "easeOut" },
+            }}
+          >
+            <Image
+              src={SLIDES[index].src}
+              alt=""
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </motion.div>
         </AnimatePresence>
       </div>
 
@@ -75,7 +98,7 @@ export function Hero() {
 
       {/* Cinematic architectural wipe */}
       <AnimatePresence>
-        {!isInitialSlide && (
+        {!isInitialSlide && !leanMotion && (
           <motion.div
             key={`wipe-${tick}`}
             aria-hidden="true"
@@ -147,37 +170,61 @@ export function Hero() {
       </aside>
 
       {/* Stage — re-key on tick to retrigger title rise */}
-      <div className="absolute inset-0 grid place-items-center text-center px-6 z-10">
+      <div className="absolute inset-0 grid place-items-center text-center px-6 z-10 md:px-6">
         <div key={tick} className="w-full max-w-[1180px] mx-auto">
           <motion.p
-            className="eyebrow-line text-[12px] uppercase tracking-[0.32em] text-white/70 mb-6"
-            initial={{ opacity: 0, y: 34, filter: "blur(6px)" }}
+            className="eyebrow-line hero-kicker mx-auto max-w-[300px] text-[10px] uppercase tracking-[0.08em] leading-relaxed text-white/70 mb-4 md:max-w-none md:text-[12px] md:tracking-[0.32em] md:mb-6"
+            initial={
+              isInitialSlide || leanMotion
+                ? false
+                : { opacity: 0, y: 18, filter: "blur(3px)" }
+            }
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 0.42, duration: 1.05, ease: EASING }}
+            transition={{
+              delay: leanMotion ? 0 : 0.08,
+              duration: 0.5,
+              ease: EASING,
+            }}
           >
             İç Mekan · Mimari Proje - Yaşam Alanları
           </motion.p>
 
           <h1
-            className="font-display font-black uppercase tracking-[-0.04em] leading-[1.05] text-white title-shadow"
-            style={{ fontSize: "clamp(1.9rem, 6.3vw, 5.9rem)" }}
+            className="mx-auto max-w-[310px] font-display font-black uppercase leading-[1.05] text-white title-shadow md:max-w-none"
+            style={{ fontSize: "clamp(1.9rem, 8.5vw, 5.9rem)" }}
           >
             <span className="block overflow-hidden pb-[0.08em]">
               <motion.span
-                className="inline-block whitespace-nowrap"
-                initial={{ y: "112%", filter: "blur(7px)" }}
+                className="block w-full whitespace-normal md:inline-block md:whitespace-nowrap"
+                initial={
+                  isInitialSlide || leanMotion
+                    ? false
+                    : { y: "112%", filter: "blur(4px)" }
+                }
                 animate={{ y: 0, filter: "blur(0px)" }}
-                transition={{ delay: 0.62, duration: 1.15, ease: EASING }}
+                transition={{
+                  delay: leanMotion ? 0 : 0.14,
+                  duration: 0.55,
+                  ease: EASING,
+                }}
               >
                 {SLIDES[index].line1}
               </motion.span>
             </span>
             <span className="block overflow-hidden pb-[0.08em]">
               <motion.span
-                className="inline-block whitespace-nowrap"
-                initial={{ y: "112%", filter: "blur(7px)" }}
+                className="block w-full whitespace-normal md:inline-block md:whitespace-nowrap"
+                initial={
+                  isInitialSlide || leanMotion
+                    ? false
+                    : { y: "112%", filter: "blur(4px)" }
+                }
                 animate={{ y: 0, filter: "blur(0px)" }}
-                transition={{ delay: 0.8, duration: 1.15, ease: EASING }}
+                transition={{
+                  delay: leanMotion ? 0 : 0.2,
+                  duration: 0.55,
+                  ease: EASING,
+                }}
               >
                 {SLIDES[index].line2}
               </motion.span>
@@ -185,21 +232,33 @@ export function Hero() {
           </h1>
 
           <motion.p
-            className="mt-6 mx-auto font-light text-white/70 max-w-[520px] leading-relaxed"
-            style={{ fontSize: "clamp(15px, 1.15vw, 18px)" }}
-            initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
+            className="mt-4 mx-auto w-full max-w-[310px] font-light text-white/75 leading-relaxed md:mt-6 md:max-w-[520px]"
+            style={{ fontSize: "clamp(15px, 4vw, 18px)" }}
+            initial={
+              isInitialSlide || leanMotion
+                ? false
+                : { opacity: 0, y: 16, filter: "blur(3px)" }
+            }
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 1.03, duration: 0.95, ease: EASING }}
+            transition={{
+              delay: leanMotion ? 0 : 0.26,
+              duration: 0.5,
+              ease: EASING,
+            }}
           >
             {SLIDES[index].subtitle}
           </motion.p>
 
           <motion.div
             aria-hidden="true"
-            className="mx-auto mt-9 w-px bg-white/40 origin-top"
-            initial={{ scaleY: 0 }}
+            className="mx-auto mt-7 w-px bg-white/40 origin-top max-md:hidden md:mt-9"
+            initial={isInitialSlide || leanMotion ? false : { scaleY: 0 }}
             animate={{ scaleY: 1 }}
-            transition={{ delay: 1.4, duration: 1, ease: EASING }}
+            transition={{
+              delay: leanMotion ? 0 : 0.32,
+              duration: 0.6,
+              ease: EASING,
+            }}
             style={{ height: 48 }}
           />
         </div>
@@ -222,7 +281,7 @@ export function Hero() {
           </button>
         </div>
 
-        <div className="flex flex-col items-end gap-3.5 max-md:flex-row max-md:items-center max-md:justify-between">
+        <div className="flex flex-col items-end gap-3.5 max-md:w-full max-md:flex-row max-md:items-center max-md:justify-between">
           <span className="font-display font-semibold text-[13px] tracking-[0.04em] text-white/70">
             <strong className="text-white text-[18px] mr-1.5">
               {pad(index + 1)}
@@ -243,12 +302,12 @@ export function Hero() {
             />
           </div>
 
-          <div className="flex gap-2.5">
+          <div className="flex gap-2 max-md:shrink-0 md:gap-2.5">
             <button
               type="button"
               onClick={() => jump(-1)}
               aria-label="Previous slide"
-              className="w-12 h-12 rounded-full bg-white text-ink grid place-items-center transition-transform duration-300 ease-smooth hover:-translate-x-[3px]"
+              className="w-12 h-12 rounded-full bg-white text-ink grid place-items-center transition-transform duration-300 ease-smooth hover:-translate-x-[3px] max-md:hidden"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -266,7 +325,7 @@ export function Hero() {
               type="button"
               onClick={() => jump(1)}
               aria-label="Next slide"
-              className="w-12 h-12 rounded-full bg-black/25 border border-white/70 text-white grid place-items-center backdrop-blur-sm transition-[transform,background] duration-300 ease-smooth hover:translate-x-[3px] hover:bg-white/[0.12]"
+              className="w-12 h-12 rounded-full bg-black/25 border border-white/70 text-white grid place-items-center backdrop-blur-sm transition-[transform,background] duration-300 ease-smooth hover:translate-x-[3px] hover:bg-white/[0.12] max-md:h-11 max-md:w-11"
             >
               <svg
                 viewBox="0 0 24 24"

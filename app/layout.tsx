@@ -54,6 +54,10 @@ export default function RootLayout({
       lang="tr"
       className={`${archivo.variable} ${hanken.variable} ${instrument.variable} ${manrope.variable}`}
     >
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://images.pexels.com" />
+      </head>
       <body>
         <Header />
         <PageTransition>{children}</PageTransition>
