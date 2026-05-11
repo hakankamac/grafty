@@ -101,6 +101,18 @@ body {
     display: none;
   }
 
+  .hero-arrow-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    z-index: 40;
+    display: flex;
+    width: 96px;
+    transform: translateX(-50%);
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
   .site-header,
   .site-header-scrolled,
   .header-actions a,

@@ -302,12 +302,12 @@ export function Hero() {
             />
           </div>
 
-          <div className="flex gap-2 max-md:shrink-0 md:gap-2.5">
+          <div className="hero-arrow-controls flex gap-2 md:gap-2.5">
             <button
               type="button"
               onClick={() => jump(-1)}
               aria-label="Previous slide"
-              className="w-12 h-12 rounded-full bg-white text-ink grid place-items-center transition-transform duration-300 ease-smooth hover:-translate-x-[3px] max-md:hidden"
+              className="w-12 h-12 rounded-full bg-white text-ink grid place-items-center transition-transform duration-300 ease-smooth hover:-translate-x-[3px] max-md:h-11 max-md:w-11"
             >
               <svg
                 viewBox="0 0 24 24"
