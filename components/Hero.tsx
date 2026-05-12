@@ -11,18 +11,27 @@ const pad = (n: number) => String(n).padStart(2, "0");
 export function Hero() {
   const [index, setIndex] = useState(0);
   const [tick, setTick] = useState(0);
-  const [leanMotion, setLeanMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isInitialSlide = tick === 0;
+  const leanMotion = isMobile || reduceMotion;
+  const mobileZoom = isMobile && !reduceMotion;
 
   useEffect(() => {
-    const query = window.matchMedia(
-      "(max-width: 768px), (prefers-reduced-motion: reduce)"
-    );
-    const update = () => setLeanMotion(query.matches);
+    const mobileQuery = window.matchMedia("(max-width: 768px)");
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      setIsMobile(mobileQuery.matches);
+      setReduceMotion(motionQuery.matches);
+    };
     update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+    mobileQuery.addEventListener("change", update);
+    motionQuery.addEventListener("change", update);
+    return () => {
+      mobileQuery.removeEventListener("change", update);
+      motionQuery.removeEventListener("change", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -52,27 +61,40 @@ export function Hero() {
             key={index}
             className="absolute inset-0 will-change-[opacity,transform]"
             initial={
-              isInitialSlide || leanMotion
+              mobileZoom
+                ? {
+                    opacity: isInitialSlide ? 1 : 0,
+                    scale: 1.03,
+                    x: 0,
+                    filter: "blur(0px)",
+                  }
+                : isInitialSlide || leanMotion
                 ? { opacity: 1, scale: 1.08, x: 0, filter: "blur(0px)" }
                 : { opacity: 0, scale: 1.06, x: 22, filter: "blur(4px)" }
             }
             animate={{
               opacity: 1,
-              scale: leanMotion ? 1.08 : 1.13,
+              scale: mobileZoom ? 1.14 : leanMotion ? 1.08 : 1.13,
               x: 0,
               filter: "blur(0px)",
             }}
             exit={{
               opacity: 0,
-              scale: 1.1,
+              scale: mobileZoom ? 1.14 : 1.1,
               x: leanMotion ? 0 : -12,
               filter: "blur(0px)",
             }}
             transition={{
-              opacity: { duration: leanMotion ? 0.45 : 0.8, ease: EASING },
+              opacity: {
+                duration: mobileZoom ? 0.5 : leanMotion ? 0.45 : 0.8,
+                ease: EASING,
+              },
               x: { duration: leanMotion ? 0.45 : 0.85, ease: EASING },
               filter: { duration: leanMotion ? 0 : 0.6, ease: EASING },
-              scale: { duration: leanMotion ? 0.45 : 8, ease: "easeOut" },
+              scale: {
+                duration: mobileZoom ? SLIDE_MS / 1000 : leanMotion ? 0.45 : 8,
+                ease: "easeOut",
+              },
             }}
           >
             <Image
