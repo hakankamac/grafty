@@ -271,18 +271,6 @@ export function Hero() {
             {SLIDES[index].subtitle}
           </motion.p>
 
-          <motion.div
-            aria-hidden="true"
-            className="mx-auto mt-7 w-px bg-white/40 origin-top max-md:hidden md:mt-9"
-            initial={isInitialSlide || leanMotion ? false : { scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{
-              delay: leanMotion ? 0 : 0.32,
-              duration: 0.6,
-              ease: EASING,
-            }}
-            style={{ height: 48 }}
-          />
         </div>
       </div>
 
