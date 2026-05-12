@@ -9,6 +9,15 @@ import { NAV } from "@/lib/site";
 const EASE = [0.76, 0, 0.24, 1] as const;
 const WIPE_EASE = [0.65, 0, 0.35, 1] as const;
 const pad = (n: number) => String(n).padStart(2, "0");
+const MENU_LINKS = [
+  ...NAV,
+  {
+    label: "İletişim",
+    href: "/contact",
+    preview:
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80",
+  },
+] as const;
 
 export function MenuOverlay({
   open,
@@ -56,7 +65,7 @@ export function MenuOverlay({
             <motion.div
               key={hoveredIdx}
               className="absolute inset-0 bg-cover bg-center will-change-[clip-path,transform]"
-              style={{ backgroundImage: `url(${NAV[hoveredIdx].preview})` }}
+              style={{ backgroundImage: `url(${MENU_LINKS[hoveredIdx].preview})` }}
               initial={{ clipPath: "inset(0 0 100% 0)", scale: 1.12 }}
               animate={{ clipPath: "inset(0 0 0% 0)", scale: 1 }}
               exit={{ clipPath: "inset(100% 0 0 0)" }}
@@ -81,10 +90,10 @@ export function MenuOverlay({
           >
             <span className="flex items-center gap-3">
               <span className="block w-7 h-px bg-white/55" />
-              {NAV[hoveredIdx].label}
+              {MENU_LINKS[hoveredIdx].label}
             </span>
             <span>
-              {pad(hoveredIdx + 1)} / {pad(NAV.length)}
+              {pad(hoveredIdx + 1)} / {pad(MENU_LINKS.length)}
             </span>
           </motion.div>
         </motion.aside>,
@@ -120,7 +129,7 @@ export function MenuOverlay({
 
             {/* Links */}
             <ul className="flex flex-col gap-2 list-none p-0 m-0">
-              {NAV.map((item, i) => (
+              {MENU_LINKS.map((item, i) => (
                 <li key={item.href} className="overflow-visible">
                   <motion.div
                     initial={{ y: "110%" }}
