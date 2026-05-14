@@ -171,7 +171,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="order-1 aspect-square w-full overflow-hidden rounded-[2rem] shadow-[0_28px_70px_-38px_rgba(0,0,0,0.38)] md:order-2 md:aspect-[4/5]">
+          <div className="relative order-1 aspect-square w-full overflow-hidden rounded-[2rem] shadow-[0_28px_70px_-38px_rgba(0,0,0,0.38)] md:order-2 md:aspect-[4/5]">
             <Image
               alt="HKM Mimarlık modern villa tasarım vizyonu"
               src={portraitImage}
