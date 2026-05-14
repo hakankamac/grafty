@@ -56,7 +56,6 @@ export default function RootLayout({
     >
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="preconnect" href="https://images.pexels.com" />
       </head>
       <body>
         <Header />

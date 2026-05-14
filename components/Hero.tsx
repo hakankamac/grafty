@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SLIDES, EASING } from "@/lib/site";
 
@@ -18,6 +18,13 @@ export function Hero() {
   const leanMotion = isMobile || reduceMotion;
   const mobileZoom = isMobile && !reduceMotion;
   const shouldAnimateText = !isInitialSlide && !leanMotion;
+  const startAutoplay = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setIndex((i) => (i + 1) % SLIDES.length);
+      setTick((t) => t + 1);
+    }, SLIDE_MS);
+  }, []);
 
   useEffect(() => {
     const mobileQuery = window.matchMedia("(max-width: 768px)");
@@ -36,18 +43,16 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setIndex((i) => (i + 1) % SLIDES.length);
-      setTick((t) => t + 1);
-    }, SLIDE_MS);
+    startAutoplay();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, []);
+  }, [startAutoplay]);
 
   const jump = (delta: number) => {
     setIndex((i) => (i + delta + SLIDES.length) % SLIDES.length);
     setTick((t) => t + 1);
+    startAutoplay();
   };
 
   return (
@@ -96,7 +101,7 @@ export function Hero() {
           >
             <Image
               src={SLIDES[index].src}
-              alt=""
+              alt={SLIDES[index].alt}
               fill
               priority={index === 0}
               sizes="100vw"

@@ -14,15 +14,24 @@ export function Header() {
   const scrolledRef = useRef(false);
 
   useEffect(() => {
+    let ticking = false;
     const updateScrolled = () => {
       const nextScrolled = window.scrollY > 24;
       if (nextScrolled === scrolledRef.current) return;
       scrolledRef.current = nextScrolled;
       setScrolled(nextScrolled);
     };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateScrolled();
+        ticking = false;
+      });
+    };
     updateScrolled();
-    window.addEventListener("scroll", updateScrolled, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrolled);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (

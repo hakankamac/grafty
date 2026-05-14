@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { NAV } from "@/lib/site";
 
@@ -28,6 +28,8 @@ export function MenuOverlay({
 }) {
   const [hoveredIdx, setHoveredIdx] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const panelRef = useRef<HTMLElement | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -35,14 +37,45 @@ export function MenuOverlay({
 
   useEffect(() => {
     if (!open) return;
+    openerRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const getFocusable = () =>
+      Array.from(
+        panelRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      ).filter((element) => !element.hasAttribute("disabled"));
+    const focusTimer = window.setTimeout(() => {
+      getFocusable()[0]?.focus();
+    }, 0);
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusable = getFocusable();
+      if (!focusable.length) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
+      window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      openerRef.current?.focus();
     };
   }, [open, onClose]);
 
@@ -101,6 +134,7 @@ export function MenuOverlay({
         // Left: frosted glass panel — slides in from left
         <motion.aside
           key="glass-panel"
+          ref={panelRef}
           role="dialog"
           aria-modal="true"
           aria-label="Site menüsü"

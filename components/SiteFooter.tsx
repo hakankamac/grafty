@@ -84,7 +84,7 @@ export function SiteFooter({ activeLabel = "Hakkımızda" }: Props) {
                 key={item.type}
                 href={item.href}
                 target={item.type === "address" ? "_blank" : undefined}
-                rel={item.type === "address" ? "noreferrer" : undefined}
+                rel={item.type === "address" ? "noopener noreferrer" : undefined}
                 className="about-body-md inline-flex items-start gap-3 text-[var(--about-on-surface-variant)] opacity-85 transition-opacity duration-300 hover:opacity-100"
                 aria-label={`${item.label}: ${item.value}`}
               >

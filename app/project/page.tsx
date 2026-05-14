@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PROJECTS } from "@/lib/projects";
 
@@ -36,9 +37,12 @@ export default function ProjectPage() {
         <div className="mx-auto max-w-[var(--project-container)]">
           <article className="project-featured grid grid-cols-1 overflow-hidden rounded-[20px] border border-[var(--project-outline-variant)] bg-[var(--project-surface-container-lowest)] shadow-[0_34px_90px_-58px_rgba(25,28,29,0.55)] lg:grid-cols-[1.2fr_0.8fr]">
             <div className="project-image-wrap aspect-[16/11] lg:aspect-auto">
-              <img
+              <Image
                 src={featuredProject.image}
                 alt={`${featuredProject.title} mimari proje görseli`}
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                quality={80}
                 className="h-full w-full object-cover"
               />
             </div>
@@ -87,9 +91,12 @@ export default function ProjectPage() {
                 className="project-card group flex min-h-full flex-col overflow-hidden rounded-[20px] border border-[var(--project-outline-variant)] bg-[var(--project-surface-container-lowest)]"
               >
                 <div className="project-image-wrap aspect-[4/3]">
-                  <img
+                  <Image
                     src={project.image}
                     alt={`${project.title} mimari proje görseli`}
+                    fill
+                    sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    quality={80}
                     className="h-full w-full object-cover"
                   />
                 </div>

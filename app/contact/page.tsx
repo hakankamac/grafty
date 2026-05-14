@@ -89,7 +89,7 @@ export default function ContactPage() {
                   key={item.type}
                   href={item.href}
                   target={item.type === "address" ? "_blank" : undefined}
-                  rel={item.type === "address" ? "noreferrer" : undefined}
+                  rel={item.type === "address" ? "noopener noreferrer" : undefined}
                   className="contact-quick-card"
                   aria-label={`${item.label}: ${item.value}`}
                 >
@@ -140,6 +140,7 @@ export default function ContactPage() {
               title="HKM Mimarlık Google Maps konumu"
               src={mapEmbedHref}
               loading="lazy"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               referrerPolicy="no-referrer-when-downgrade"
               className="contact-map-frame"
             />
