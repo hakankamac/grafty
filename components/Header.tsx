@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/site";
 import { MenuOverlay } from "./MenuOverlay";
 
@@ -11,9 +11,15 @@ export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const scrolledRef = useRef(false);
 
   useEffect(() => {
-    const updateScrolled = () => setScrolled(window.scrollY > 24);
+    const updateScrolled = () => {
+      const nextScrolled = window.scrollY > 24;
+      if (nextScrolled === scrolledRef.current) return;
+      scrolledRef.current = nextScrolled;
+      setScrolled(nextScrolled);
+    };
     updateScrolled();
     window.addEventListener("scroll", updateScrolled, { passive: true });
     return () => window.removeEventListener("scroll", updateScrolled);

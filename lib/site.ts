@@ -1,3 +1,8 @@
+import home1 from "@/Brand_assets/Home Pictures/home-1.jpg";
+import home2 from "@/Brand_assets/Home Pictures/home-2.jpg";
+import home3 from "@/Brand_assets/Home Pictures/home-3.jpg";
+import home4 from "@/Brand_assets/Home Pictures/home-4.jpg";
+
 export const NAV = [
   {
     label: "Ana Sayfa",
@@ -29,28 +34,28 @@ export const PAGE_TRANSITIONS = [
 
 export const SLIDES = [
   {
-    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=80",
+    src: home1,
     alt: "Modern white villa with infinity pool",
     line1: "Modern Villa",
     line2: "Tasarımı.",
     subtitle: "HKM Mimarlık, modern villa ve lüks konut projelerinde zamansız yaşam alanları tasarlar.",
   },
   {
-    src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=80",
+    src: home2,
     alt: "Glass and timber luxury home at dusk",
     line1: "İç Mekan",
     line2: "Tasarımı.",
     subtitle: "Mekan akışı, malzeme ve ışığı dengeli bir mimari dille buluşturuyoruz.",
   },
   {
-    src: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=2400&q=80",
+    src: home3,
     alt: "Concrete villa with cantilevered roof",
     line1: "Mimari Proje",
     line2: "Hizmetleri.",
     subtitle: "Konut, villa ve iç mekan projeleri için uygulanabilir tasarım çözümleri üretiyoruz.",
   },
   {
-    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=80",
+    src: home4,
     alt: "Warm modern residence with pool",
     line1: "Lüks Konut",
     line2: "Projeleri.",

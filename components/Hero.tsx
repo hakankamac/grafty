@@ -17,6 +17,7 @@ export function Hero() {
   const isInitialSlide = tick === 0;
   const leanMotion = isMobile || reduceMotion;
   const mobileZoom = isMobile && !reduceMotion;
+  const shouldAnimateText = !isInitialSlide && !leanMotion;
 
   useEffect(() => {
     const mobileQuery = window.matchMedia("(max-width: 768px)");
@@ -64,25 +65,22 @@ export function Hero() {
               mobileZoom
                 ? {
                     opacity: isInitialSlide ? 1 : 0,
-                    scale: 1.03,
+                    scale: 1.02,
                     x: 0,
-                    filter: "blur(0px)",
                   }
                 : isInitialSlide || leanMotion
-                ? { opacity: 1, scale: 1.08, x: 0, filter: "blur(0px)" }
-                : { opacity: 0, scale: 1.06, x: 22, filter: "blur(4px)" }
+                ? { opacity: 1, scale: 1.04, x: 0 }
+                : { opacity: 0, scale: 1.03, x: 18 }
             }
             animate={{
               opacity: 1,
-              scale: mobileZoom ? 1.14 : leanMotion ? 1.08 : 1.13,
+              scale: mobileZoom ? 1.07 : leanMotion ? 1.04 : 1.075,
               x: 0,
-              filter: "blur(0px)",
             }}
             exit={{
               opacity: 0,
-              scale: mobileZoom ? 1.14 : 1.1,
-              x: leanMotion ? 0 : -12,
-              filter: "blur(0px)",
+              scale: mobileZoom ? 1.07 : 1.055,
+              x: leanMotion ? 0 : -8,
             }}
             transition={{
               opacity: {
@@ -90,9 +88,8 @@ export function Hero() {
                 ease: EASING,
               },
               x: { duration: leanMotion ? 0.45 : 0.85, ease: EASING },
-              filter: { duration: leanMotion ? 0 : 0.6, ease: EASING },
               scale: {
-                duration: mobileZoom ? SLIDE_MS / 1000 : leanMotion ? 0.45 : 8,
+                duration: mobileZoom ? SLIDE_MS / 1000 : leanMotion ? 0.45 : 6.5,
                 ease: "easeOut",
               },
             }}
@@ -103,6 +100,7 @@ export function Hero() {
               fill
               priority={index === 0}
               sizes="100vw"
+              quality={72}
               className="object-cover object-center"
             />
           </motion.div>
@@ -131,7 +129,7 @@ export function Hero() {
             transition={{ delay: 1.15, duration: 0.25, ease: EASING }}
           >
             <motion.div
-              className="absolute -top-[18%] bottom-[-18%] left-0 w-[48vw] min-w-[420px] bg-[linear-gradient(90deg,transparent_0%,rgba(9,9,10,0.18)_18%,rgba(255,255,255,0.16)_50%,rgba(9,9,10,0.34)_82%,transparent_100%)] backdrop-blur-[2px]"
+              className="absolute -top-[18%] bottom-[-18%] left-0 w-[48vw] min-w-[420px] bg-[linear-gradient(90deg,transparent_0%,rgba(9,9,10,0.18)_18%,rgba(255,255,255,0.16)_50%,rgba(9,9,10,0.34)_82%,transparent_100%)]"
               initial={{ x: "-120%", skewX: -12 }}
               animate={{ x: "245%", skewX: -12 }}
               transition={{ duration: 1.35, ease: EASING }}
@@ -197,11 +195,9 @@ export function Hero() {
           <motion.p
             className="eyebrow-line hero-kicker mx-auto max-w-[300px] text-[10px] uppercase tracking-[0.08em] leading-relaxed text-white/70 mb-4 md:max-w-none md:text-[12px] md:tracking-[0.32em] md:mb-6"
             initial={
-              isInitialSlide || leanMotion
-                ? false
-                : { opacity: 0, y: 18, filter: "blur(3px)" }
+              shouldAnimateText ? { opacity: 0, y: 18 } : false
             }
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               delay: leanMotion ? 0 : 0.08,
               duration: 0.5,
@@ -219,11 +215,9 @@ export function Hero() {
               <motion.span
                 className="block w-full whitespace-normal md:inline-block md:whitespace-nowrap"
                 initial={
-                  isInitialSlide || leanMotion
-                    ? false
-                    : { y: "112%", filter: "blur(4px)" }
+                  shouldAnimateText ? { y: "112%" } : false
                 }
-                animate={{ y: 0, filter: "blur(0px)" }}
+                animate={{ y: 0 }}
                 transition={{
                   delay: leanMotion ? 0 : 0.14,
                   duration: 0.55,
@@ -237,11 +231,9 @@ export function Hero() {
               <motion.span
                 className="block w-full whitespace-normal md:inline-block md:whitespace-nowrap"
                 initial={
-                  isInitialSlide || leanMotion
-                    ? false
-                    : { y: "112%", filter: "blur(4px)" }
+                  shouldAnimateText ? { y: "112%" } : false
                 }
-                animate={{ y: 0, filter: "blur(0px)" }}
+                animate={{ y: 0 }}
                 transition={{
                   delay: leanMotion ? 0 : 0.2,
                   duration: 0.55,
@@ -257,11 +249,9 @@ export function Hero() {
             className="mt-4 mx-auto w-full max-w-[310px] font-light text-white/75 leading-relaxed md:mt-6 md:max-w-[520px]"
             style={{ fontSize: "clamp(15px, 4vw, 18px)" }}
             initial={
-              isInitialSlide || leanMotion
-                ? false
-                : { opacity: 0, y: 16, filter: "blur(3px)" }
+              shouldAnimateText ? { opacity: 0, y: 16 } : false
             }
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               delay: leanMotion ? 0 : 0.26,
               duration: 0.5,
