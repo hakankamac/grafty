@@ -358,6 +358,103 @@ body {
   opacity: 1;
 }
 
+.home-service-row {
+  position: relative;
+  isolation: isolate;
+  border-radius: 16px;
+  box-shadow: 0 14px 44px -38px rgba(25, 28, 29, 0);
+  transition:
+    box-shadow 360ms var(--easing),
+    transform 360ms var(--easing);
+}
+
+.home-service-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.58);
+  opacity: 0;
+  transition: opacity 360ms var(--easing);
+}
+
+.home-service-row-default,
+.home-service-row:hover {
+  box-shadow: 0 16px 42px -40px rgba(25, 28, 29, 0.42);
+}
+
+.home-service-row-default::before,
+.home-service-row:hover::before {
+  opacity: 1;
+}
+
+.home-service-list:has(.home-service-row:hover)
+  .home-service-row-default:not(:hover) {
+  box-shadow: none;
+}
+
+.home-service-list:has(.home-service-row:hover)
+  .home-service-row-default:not(:hover)::before {
+  opacity: 0;
+}
+
+.home-project-panel {
+  transition:
+    transform 360ms var(--easing);
+}
+
+.home-project-panel:hover {
+  transform: translateY(-3px);
+}
+
+.home-continuation h2 {
+  font-weight: 600;
+}
+
+.home-scroll-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 760ms var(--easing),
+    transform 760ms var(--easing);
+  transition-delay: var(--home-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.home-scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-process-timeline {
+  position: relative;
+}
+
+.home-process-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46px;
+  height: 1px;
+  background: var(--about-outline);
+  opacity: 0.74;
+}
+
+.home-process-step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 42px;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--about-outline);
+  border-radius: 9999px;
+  background: var(--about-surface);
+}
+
 @keyframes aboutFadeInUp {
   from {
     opacity: 0;
@@ -383,6 +480,12 @@ body {
 
   .about-holo-card {
     transform: none !important;
+  }
+
+  .home-scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

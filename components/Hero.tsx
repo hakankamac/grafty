@@ -270,22 +270,7 @@ export function Hero() {
       </div>
 
       {/* Footer controls */}
-      <footer className="absolute left-0 right-0 bottom-0 px-6 md:px-10 pt-7 pb-9 flex justify-between items-end z-30 max-md:flex-col max-md:items-stretch max-md:gap-5">
-        <div className="flex gap-2.5 flex-wrap max-md:justify-center">
-          <button
-            type="button"
-            className="px-[22px] py-2.5 border border-white/55 rounded-full text-white text-[13px] font-medium tracking-[0.02em] bg-white/[0.16] backdrop-blur-sm transition-[background,border-color] duration-300 ease-smooth hover:bg-white/[0.2] hover:border-white"
-          >
-            Mimarlık
-          </button>
-          <button
-            type="button"
-            className="px-[22px] py-2.5 border border-white/55 rounded-full text-white text-[13px] font-medium tracking-[0.02em] bg-transparent backdrop-blur-sm transition-[background,border-color] duration-300 ease-smooth hover:bg-white/[0.12] hover:border-white"
-          >
-            İç Tasarım
-          </button>
-        </div>
-
+      <footer className="absolute left-0 right-0 bottom-0 px-6 md:px-10 pt-7 pb-9 flex justify-end items-end z-30 max-md:flex-col max-md:items-stretch max-md:gap-5">
         <div className="flex flex-col items-end gap-3.5 max-md:w-full max-md:flex-row max-md:items-center max-md:justify-between">
           <span className="font-display font-semibold text-[13px] tracking-[0.04em] text-white/70">
             <strong className="text-white text-[18px] mr-1.5">
