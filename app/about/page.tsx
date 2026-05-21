@@ -1,15 +1,42 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import { AboutFeatureCard } from "@/components/AboutFeatureCard";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import aboutHeaderImage from "@/Brand_assets/about-header.jpg";
+import aboutVillaImage from "@/Brand_assets/about-villa.jpg";
+import founderPortraitImage from "@/Brand_assets/founder-portrait.jpg";
 
-const heroImage = aboutHeaderImage.src;
-
-const villaImage =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuACbymr7ak44ohaOPMlbjV0s-dpHA8zUyu-2taOu7nEL_aY1RcAEk2emFv4dTSv5C3JmVGjV5jTQm6iHlhQDjagRR3xRRTfD_PPK8aPC-EiwD6zTi9w4z2JwV7hvi6hRavDI-c3SNDcbzddD9R9AA6NnYwSLy5ksxNVKOmZTsdcehnndwdJatX8vWJmK6MnkkiTOSheH9VNBBTAagGuADXq4PhOVm7LOEMvIbw4uStA8rOO-txQBdkoNd0nbDQG2rwspit3zaq2GBU";
-
-const portraitImage =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDzyF_ezoLsD0ZAxwkJecjNHo6EnVjZba5hATUeRUqQn_tWRqM8EjzuXZsA6Q5KXNx5398_DR3Qwa3MZ6nCYKmMFC9Nrpq5wvKxx9Qg4MQR7ZhdZHAyZjjDt9qeR4laKz5KjySsbu969RPgPpg5_mODOj0a81ZtRIUTD77KtYFugUoajrXV41-X4Ti0eaez1yUMRvKjeH5__SiAdbMYQ0fd8GHEI3RFqQdw_qDikWHQY4gISVqi_JkSt2Lm4OTdRLJaG613I9sqAdU";
+export const metadata: Metadata = {
+  title: "Hakkımızda",
+  description:
+    "HKM Mimarlık; modern villa, lüks konut ve iç mekan projelerinde zamansız, işlevsel ve sakin mimari çözümler üretir.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "HKM Mimarlık — Hakkımızda",
+    description:
+      "Modern villa, lüks konut ve iç mekan projelerinde sakin, net ve uygulanabilir mimari yaklaşım.",
+    url: "/about",
+    siteName: "HKM Mimarlık",
+    images: [
+      {
+        url: aboutHeaderImage.src,
+        width: aboutHeaderImage.width,
+        height: aboutHeaderImage.height,
+        alt: "HKM Mimarlık hakkında hero görseli",
+      },
+    ],
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HKM Mimarlık — Hakkımızda",
+    description:
+      "Modern villa, lüks konut ve iç mekan projelerinde sakin, net ve uygulanabilir mimari yaklaşım.",
+    images: [aboutHeaderImage.src],
+  },
+};
 
 const features = [
   {
@@ -47,10 +74,17 @@ const features = [
 export default function AboutPage() {
   return (
     <main className="about-calm min-h-screen overflow-hidden">
-      <section
-        className="relative flex min-h-[520px] w-full items-end overflow-hidden bg-cover bg-[center_43%] px-[var(--about-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
+      <ScrollReveal rootSelector=".about-calm" />
+      <section className="relative flex min-h-[520px] w-full items-end overflow-hidden px-[var(--about-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48">
+        <Image
+          src={aboutHeaderImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={80}
+          className="absolute inset-0 h-full w-full object-cover object-[center_43%]"
+        />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/60" />
         <div
@@ -72,7 +106,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="px-[var(--about-gutter)] py-20 md:py-28">
+      <section className="scroll-reveal-section px-[var(--about-gutter)] py-20 md:py-28">
         <div className="mx-auto grid max-w-[var(--about-container)] grid-cols-1 items-center gap-14 md:grid-cols-2 md:gap-20">
           <div className="flex flex-col gap-6">
             <h2 className="about-headline-lg text-[var(--about-on-surface)]">
@@ -97,10 +131,13 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-[0_28px_70px_-38px_rgba(0,0,0,0.38)]">
+          <div
+            className="relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-[0_28px_70px_-38px_rgba(0,0,0,0.38)]"
+            data-scroll-reveal
+          >
             <Image
               alt="Mauritius luxury villa"
-              src={villaImage}
+              src={aboutVillaImage}
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               quality={80}
@@ -110,7 +147,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-[var(--about-surface-container-low)] px-[var(--about-gutter)] py-20 md:py-28">
+      <section className="scroll-reveal-section bg-[var(--about-surface-container-low)] px-[var(--about-gutter)] py-20 md:py-28">
         <div className="mx-auto flex max-w-[var(--about-container)] flex-col gap-14">
           <div className="mx-auto max-w-2xl text-center">
             <p className="about-label mb-4 text-[var(--about-primary)]">
@@ -135,13 +172,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-[var(--about-surface)] px-[var(--about-gutter)] py-20 md:py-28">
+      <section className="scroll-reveal-section bg-[var(--about-surface)] px-[var(--about-gutter)] py-20 md:py-28">
         <div className="mx-auto grid max-w-[var(--about-container)] grid-cols-1 items-center gap-14 md:grid-cols-2 md:gap-20">
           <div className="order-2 flex flex-col gap-6 md:order-1">
-            <p className="about-label about-fade-in text-[var(--about-primary)]">
+            <p className="about-label text-[var(--about-primary)]">
               Kurucu / Mimari Vizyonumuz
             </p>
-            <h2 className="about-headline-lg about-fade-in about-stagger-1 text-[var(--about-on-surface)]">
+            <h2 className="about-headline-lg text-[var(--about-on-surface)]">
               HKM Mimarlık’ın Tasarım Yaklaşımı
             </h2>
             <div className="space-y-5">
@@ -171,14 +208,17 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative order-1 aspect-square w-full overflow-hidden rounded-[2rem] shadow-[0_28px_70px_-38px_rgba(0,0,0,0.38)] md:order-2 md:aspect-[4/5]">
+          <div
+            className="relative order-1 aspect-square w-full overflow-hidden rounded-[2rem] shadow-[0_28px_70px_-38px_rgba(0,0,0,0.38)] md:order-2 md:aspect-[4/5]"
+            data-scroll-reveal
+          >
             <Image
               alt="HKM Mimarlık modern villa tasarım vizyonu"
-              src={portraitImage}
+              src={founderPortraitImage}
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               quality={80}
-              className="h-full w-full object-cover object-top about-fade-in"
+              className="h-full w-full object-cover object-top"
             />
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import { useEffect, useRef } from "react";
 
 type IconName =
   | "building"
@@ -18,29 +19,66 @@ type Props = {
 };
 
 export function AboutFeatureCard({ icon, title, children, className = "" }: Props) {
-  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
-    const card = event.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 14;
-    const rotateY = -(x - centerX) / 14;
-    const bgX = (x / rect.width) * 100;
-    const bgY = (y / rect.height) * 100;
+  const frameRef = useRef<number | null>(null);
+  const pointerRef = useRef<{
+    card: HTMLDivElement;
+    clientX: number;
+    clientY: number;
+  } | null>(null);
 
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    card.style.setProperty("--bg-x", `${bgX}%`);
-    card.style.setProperty("--bg-y", `${bgY}%`);
+  useEffect(() => {
+    return () => {
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, []);
+
+  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
+    pointerRef.current = {
+      card: event.currentTarget,
+      clientX: event.clientX,
+      clientY: event.clientY,
+    };
+
+    if (frameRef.current) return;
+
+    frameRef.current = window.requestAnimationFrame(() => {
+      const pointer = pointerRef.current;
+      if (!pointer) {
+        frameRef.current = null;
+        return;
+      }
+
+      const { card, clientX, clientY } = pointer;
+      const rect = card.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 14;
+      const rotateY = -(x - centerX) / 14;
+      const bgX = (x / rect.width) * 100;
+      const bgY = (y / rect.height) * 100;
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.setProperty("--bg-x", `${bgX}%`);
+      card.style.setProperty("--bg-y", `${bgY}%`);
+      frameRef.current = null;
+    });
   }
 
   function handleMouseLeave(event: MouseEvent<HTMLDivElement>) {
+    if (frameRef.current) {
+      window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    pointerRef.current = null;
     event.currentTarget.style.transform = "rotateX(0deg) rotateY(0deg)";
   }
 
   return (
-    <div className={`about-holo-wrap about-fade-in-up h-full ${className}`}>
+    <div className={`about-holo-wrap h-full ${className}`} data-scroll-reveal>
       <div
         className="about-holo-card h-full min-h-[300px] rounded-[2rem] border border-[var(--about-surface-container-highest)] p-8 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.28)] max-[340px]:min-h-[358px] md:min-h-[316px] md:p-10"
         onMouseMove={handleMouseMove}

@@ -1,4 +1,7 @@
+import Image from "next/image";
+import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const contactHeroImage =
@@ -37,13 +40,51 @@ const processSteps = [
   "Konsept yön ve teklif süreci",
 ] as const;
 
+export const metadata: Metadata = {
+  title: "İletişim",
+  description:
+    "HKM Mimarlık ile modern villa, lüks konut ve iç mekan projeleriniz için iletişime geçin.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "HKM Mimarlık — İletişim",
+    description:
+      "Modern villa, lüks konut ve iç mekan projeleriniz için ilk mimari görüşmeyi planlayın.",
+    url: "/contact",
+    siteName: "HKM Mimarlık",
+    images: [
+      {
+        url: contactHeroImage,
+        width: 2400,
+        height: 1600,
+        alt: "HKM Mimarlık iletişim hero görseli",
+      },
+    ],
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HKM Mimarlık — İletişim",
+    description:
+      "Modern villa, lüks konut ve iç mekan projeleriniz için ilk mimari görüşmeyi planlayın.",
+    images: [contactHeroImage],
+  },
+};
+
 export default function ContactPage() {
   return (
-    <main className="contact-calm min-h-screen overflow-hidden">
-      <section
-        className="contact-photo-hero relative flex min-h-[520px] items-end overflow-hidden px-[var(--contact-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48"
-        style={{ backgroundImage: `url(${contactHeroImage})` }}
-      >
+    <main className="contact-calm contact-scroll-root min-h-screen overflow-hidden">
+      <ScrollReveal rootSelector=".contact-scroll-root" />
+      <section className="contact-photo-hero relative flex min-h-[520px] items-end overflow-hidden px-[var(--contact-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48">
+        <Image
+          src={contactHeroImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={80}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/60" />
         <div
@@ -65,12 +106,12 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="contact-hero relative px-[var(--contact-gutter)] py-20 md:py-28">
+      <section className="contact-hero scroll-reveal-section relative px-[var(--contact-gutter)] py-20 md:py-28">
         <div aria-hidden="true" className="contact-grid-pattern" />
         <div aria-hidden="true" className="absolute inset-0 grain opacity-[0.035]" />
 
         <div className="relative z-10 mx-auto grid max-w-[var(--contact-container)] grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div className="contact-fade-up flex flex-col gap-7">
+          <div className="flex flex-col gap-7">
             <p className="contact-label text-[var(--contact-primary)]">
               Hızlı Bilgi
             </p>
@@ -92,6 +133,7 @@ export default function ContactPage() {
                   rel={item.type === "address" ? "noopener noreferrer" : undefined}
                   className="contact-quick-card"
                   aria-label={`${item.label}: ${item.value}`}
+                  data-scroll-reveal
                 >
                   <ContactIcon type={item.type} />
                   <span>{item.label}</span>
@@ -101,15 +143,15 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="contact-fade-up contact-delay-1">
+          <div data-scroll-reveal>
             <ContactForm />
           </div>
         </div>
       </section>
 
-      <section className="px-[var(--contact-gutter)] py-20 md:py-28">
+      <section className="scroll-reveal-section px-[var(--contact-gutter)] py-20 md:py-28">
         <div className="mx-auto grid max-w-[var(--contact-container)] grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-stretch">
-          <article className="contact-info-panel">
+          <article className="contact-info-panel" data-scroll-reveal>
             <p className="contact-label text-[var(--contact-tertiary)]">
               Süreç
             </p>
@@ -135,12 +177,12 @@ export default function ContactPage() {
           <div
             className="contact-map-card group"
             aria-label="Google Maps üzerinde HKM Mimarlık konumunu aç"
+            data-scroll-reveal
           >
             <iframe
               title="HKM Mimarlık Google Maps konumu"
               src={mapEmbedHref}
               loading="lazy"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               referrerPolicy="no-referrer-when-downgrade"
               className="contact-map-frame"
             />

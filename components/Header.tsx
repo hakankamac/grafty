@@ -97,6 +97,7 @@ export function Header() {
           onClick={() => setMenuOpen(true)}
           aria-label="Menüyü aç"
           aria-expanded={menuOpen}
+          aria-controls="site-menu-overlay"
           className="w-11 h-11 rounded-full bg-white/10 text-white grid place-items-center backdrop-blur-xl border border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.18)] transition-[transform,background,border-color] duration-300 ease-smooth hover:rotate-90 hover:bg-white/15 hover:border-white/35 max-md:fixed max-md:right-4 max-md:top-5 max-md:z-[70] max-md:h-10 max-md:w-10 max-md:bg-white/20"
         >
           <svg

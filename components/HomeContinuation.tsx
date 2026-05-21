@@ -3,11 +3,9 @@ import Link from "next/link";
 import homeProjectOne from "@/Brand_assets/Home Pictures/home-1.jpg";
 import homeProjectTwo from "@/Brand_assets/Home Pictures/home-2.jpg";
 import homeProjectThree from "@/Brand_assets/Home Pictures/home-3.jpg";
+import founderPortrait from "@/Brand_assets/founder-portrait.jpg";
 import { HomeScrollReveal } from "@/components/HomeScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
-
-const founderPortrait =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDzyF_ezoLsD0ZAxwkJecjNHo6EnVjZba5hATUeRUqQn_tWRqM8EjzuXZsA6Q5KXNx5398_DR3Qwa3MZ6nCYKmMFC9Nrpq5wvKxx9Qg4MQR7ZhdZHAyZjjDt9qeR4laKz5KjySsbu969RPgPpg5_mODOj0a81ZtRIUTD77KtYFugUoajrXV41-X4Ti0eaez1yUMRvKjeH5__SiAdbMYQ0fd8GHEI3RFqQdw_qDikWHQY4gISVqi_JkSt2Lm4OTdRLJaG613I9sqAdU";
 
 const services = [
   {
@@ -220,18 +218,18 @@ export function HomeContinuation() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-1.5 md:grid-cols-3">
+          <div className="home-project-grid grid grid-cols-1 gap-2 sm:gap-2.5">
             {selectedProjects.map((project) => (
               <Link
                 key={project.number}
                 href="/project"
-                className="home-project-panel group relative aspect-[4/5] min-h-[420px] overflow-hidden bg-[var(--about-surface-container)]"
+                className="home-project-panel group relative aspect-[4/5] min-h-[360px] overflow-hidden bg-[var(--about-surface-container)] sm:min-h-[420px] lg:min-h-[440px]"
               >
                 <Image
                   src={project.image}
                   alt={`${project.title} mimari proje görseli`}
                   fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   quality={82}
                   className="h-full w-full object-cover transition-transform duration-700 ease-smooth group-hover:scale-[1.035]"
                 />
@@ -245,11 +243,11 @@ export function HomeContinuation() {
                   </span>
                   <span className="h-px w-10 bg-white/70" />
                 </div>
-                <div className="absolute inset-x-0 bottom-0 flex items-center gap-8 p-6 text-white md:p-7">
-                  <h3 className="about-headline-sm text-white">
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 p-5 text-white sm:p-6 md:p-7">
+                  <h3 className="about-headline-sm max-w-[12ch] text-white">
                     {project.title}
                   </h3>
-                  <span aria-hidden="true" className="text-3xl leading-none">
+                  <span aria-hidden="true" className="shrink-0 text-3xl leading-none">
                     →
                   </span>
                 </div>
@@ -276,19 +274,19 @@ export function HomeContinuation() {
             </p>
           </div>
 
-          <div className="home-process-timeline grid gap-10 md:grid-cols-4 md:gap-0">
+          <div className="home-process-timeline grid gap-8 lg:grid-cols-4 lg:gap-0">
             {processSteps.map((step) => (
               <div
                 key={step.number}
-                className="home-process-step relative md:pr-12"
+                className="home-process-step relative pl-9 lg:pl-0 lg:pr-12"
               >
                 <span className="about-label block text-[var(--about-primary)]">
                   {step.number}
                 </span>
-                <h3 className="mt-10 text-lg font-semibold leading-7 text-[var(--about-on-surface)]">
+                <h3 className="mt-3 text-lg font-semibold leading-7 text-[var(--about-on-surface)] lg:mt-10">
                   {step.title}
                 </h3>
-                <p className="about-body-md mt-3 max-w-[24ch] text-[var(--about-on-surface-variant)]">
+                <p className="about-body-md mt-3 max-w-[34rem] text-[var(--about-on-surface-variant)] lg:max-w-[24ch]">
                   {step.text}
                 </p>
               </div>

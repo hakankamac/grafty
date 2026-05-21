@@ -399,6 +399,10 @@ body {
   opacity: 0;
 }
 
+.home-project-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .home-project-panel {
   transition:
     transform 360ms var(--easing);
@@ -412,16 +416,18 @@ body {
   font-weight: 600;
 }
 
+.scroll-reveal,
 .home-scroll-reveal {
   opacity: 0;
   transform: translateY(22px);
   transition:
     opacity 760ms var(--easing),
     transform 760ms var(--easing);
-  transition-delay: var(--home-reveal-delay, 0ms);
+  transition-delay: var(--scroll-reveal-delay, var(--home-reveal-delay, 0ms));
   will-change: opacity, transform;
 }
 
+.scroll-reveal.is-visible,
 .home-scroll-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
@@ -434,10 +440,10 @@ body {
 .home-process-timeline::before {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 46px;
-  height: 1px;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
   background: var(--about-outline);
   opacity: 0.74;
 }
@@ -446,13 +452,38 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  top: 42px;
+  top: 6px;
   z-index: 1;
   width: 10px;
   height: 10px;
   border: 1px solid var(--about-outline);
   border-radius: 9999px;
   background: var(--about-surface);
+}
+
+@media (min-width: 760px) {
+  .home-project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-project-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-process-timeline::before {
+    left: 0;
+    right: 0;
+    top: 46px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .home-process-step::before {
+    top: 42px;
+  }
 }
 
 @keyframes aboutFadeInUp {
@@ -482,6 +513,7 @@ body {
     transform: none !important;
   }
 
+  .scroll-reveal,
   .home-scroll-reveal {
     opacity: 1;
     transform: none;
@@ -601,6 +633,23 @@ body {
   transform: translateY(-4px);
   border-color: rgba(110, 122, 112, 0.46);
   box-shadow: 0 28px 68px -42px rgba(25, 28, 29, 0.62);
+}
+
+.project-card.scroll-reveal {
+  transition:
+    opacity 760ms var(--easing),
+    transform 760ms var(--easing),
+    border-color 300ms var(--easing),
+    box-shadow 300ms var(--easing);
+  transition-delay:
+    var(--scroll-reveal-delay, 0ms),
+    var(--scroll-reveal-delay, 0ms),
+    0ms,
+    0ms;
+}
+
+.project-card.scroll-reveal.is-visible:hover {
+  transform: translateY(-4px);
 }
 
 .project-card:hover .project-image-wrap img,
@@ -799,6 +848,23 @@ body {
   transform: translateY(-3px);
   border-color: rgba(0, 95, 52, 0.3);
   background: #ffffff;
+}
+
+.contact-quick-card.scroll-reveal {
+  transition:
+    opacity 760ms var(--easing),
+    transform 760ms var(--easing),
+    background-color 300ms var(--easing),
+    border-color 300ms var(--easing);
+  transition-delay:
+    var(--scroll-reveal-delay, 0ms),
+    var(--scroll-reveal-delay, 0ms),
+    0ms,
+    0ms;
+}
+
+.contact-quick-card.scroll-reveal.is-visible:hover {
+  transform: translateY(-3px);
 }
 
 .contact-quick-card svg {

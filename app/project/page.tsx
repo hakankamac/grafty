@@ -1,16 +1,56 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PROJECTS } from "@/lib/projects";
 
 const featuredProject = PROJECTS.find((project) => project.featured) ?? PROJECTS[0];
 
+export const metadata: Metadata = {
+  title: "Projelerimiz",
+  description:
+    "HKM Mimarlık'ın modern villa, lüks konut ve iç mekan projelerinden seçili işler.",
+  alternates: { canonical: "/project" },
+  openGraph: {
+    title: "HKM Mimarlık — Projelerimiz",
+    description:
+      "Modern villa, lüks konut ve iç mekan projelerinde seçili mimari çalışmalar.",
+    url: "/project",
+    siteName: "HKM Mimarlık",
+    images: [
+      {
+        url: featuredProject.image,
+        width: 1800,
+        height: 1200,
+        alt: `${featuredProject.title} mimari proje görseli`,
+      },
+    ],
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HKM Mimarlık — Projelerimiz",
+    description:
+      "Modern villa, lüks konut ve iç mekan projelerinde seçili mimari çalışmalar.",
+    images: [featuredProject.image],
+  },
+};
+
 export default function ProjectPage() {
   return (
-    <main className="project-calm min-h-screen overflow-hidden">
-      <section
-        className="project-hero project-photo-hero relative flex min-h-[520px] items-end overflow-hidden px-[var(--project-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48"
-        style={{ backgroundImage: `url(${featuredProject.image})` }}
-      >
+    <main className="project-calm project-scroll-root min-h-screen overflow-hidden">
+      <ScrollReveal rootSelector=".project-scroll-root" />
+      <section className="project-hero project-photo-hero relative flex min-h-[520px] items-end overflow-hidden px-[var(--project-gutter)] pb-16 pt-40 md:min-h-[590px] md:pb-24 md:pt-48">
+        <Image
+          src={featuredProject.image}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={80}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/60" />
         <div
@@ -33,9 +73,12 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      <section className="px-[var(--project-gutter)] py-20 md:py-28">
+      <section className="scroll-reveal-section px-[var(--project-gutter)] py-20 md:py-28">
         <div className="mx-auto max-w-[var(--project-container)]">
-          <article className="project-featured grid grid-cols-1 overflow-hidden rounded-[20px] border border-[var(--project-outline-variant)] bg-[var(--project-surface-container-lowest)] shadow-[0_34px_90px_-58px_rgba(25,28,29,0.55)] lg:grid-cols-[1.2fr_0.8fr]">
+          <article
+            className="project-featured grid grid-cols-1 overflow-hidden rounded-[20px] border border-[var(--project-outline-variant)] bg-[var(--project-surface-container-lowest)] shadow-[0_34px_90px_-58px_rgba(25,28,29,0.55)] lg:grid-cols-[1.2fr_0.8fr]"
+            data-scroll-reveal
+          >
             <div className="project-image-wrap aspect-[16/11] lg:aspect-auto">
               <Image
                 src={featuredProject.image}
@@ -66,7 +109,7 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      <section className="bg-[var(--project-surface-container-low)] px-[var(--project-gutter)] py-20 md:py-28">
+      <section className="scroll-reveal-section bg-[var(--project-surface-container-low)] px-[var(--project-gutter)] py-20 md:py-28">
         <div className="mx-auto max-w-[var(--project-container)]">
           <div className="mb-12 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
             <div>
@@ -89,6 +132,7 @@ export default function ProjectPage() {
               <article
                 key={project.title}
                 className="project-card group flex min-h-full flex-col overflow-hidden rounded-[20px] border border-[var(--project-outline-variant)] bg-[var(--project-surface-container-lowest)]"
+                data-scroll-reveal
               >
                 <div className="project-image-wrap aspect-[4/3]">
                   <Image
@@ -126,8 +170,11 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      <section className="px-[var(--project-gutter)] py-20 md:py-28">
-        <div className="project-cta mx-auto grid max-w-[var(--project-container)] grid-cols-1 gap-10 rounded-[20px] bg-[var(--project-inverse-surface)] p-7 text-white md:p-12 lg:grid-cols-[1fr_auto] lg:items-end">
+      <section className="scroll-reveal-section px-[var(--project-gutter)] py-20 md:py-28">
+        <div
+          className="project-cta mx-auto grid max-w-[var(--project-container)] grid-cols-1 gap-10 rounded-[20px] bg-[var(--project-inverse-surface)] p-7 text-white md:p-12 lg:grid-cols-[1fr_auto] lg:items-end"
+          data-scroll-reveal
+        >
           <div>
             <p className="project-label mb-5 text-[var(--project-inverse-primary)]">
               Proje danışmanlığı

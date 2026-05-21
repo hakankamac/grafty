@@ -39,6 +39,7 @@ export function MenuOverlay({
     if (!open) return;
     openerRef.current =
       document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousBodyOverflow = document.body.style.overflow;
     const getFocusable = () =>
       Array.from(
         panelRef.current?.querySelectorAll<HTMLElement>(
@@ -74,7 +75,7 @@ export function MenuOverlay({
     return () => {
       window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousBodyOverflow;
       openerRef.current?.focus();
     };
   }, [open, onClose]);
@@ -135,6 +136,7 @@ export function MenuOverlay({
         <motion.aside
           key="glass-panel"
           ref={panelRef}
+          id="site-menu-overlay"
           role="dialog"
           aria-modal="true"
           aria-label="Site menüsü"
