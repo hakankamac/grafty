@@ -1,11 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/site";
-import { MenuOverlay } from "./MenuOverlay";
+
+const MenuOverlay = dynamic(
+  () => import("./MenuOverlay").then((module) => module.MenuOverlay),
+  { ssr: false },
+);
 
 export function Header() {
   const pathname = usePathname();
@@ -113,7 +118,7 @@ export function Header() {
         </button>
       </div>
 
-      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+      {menuOpen && <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />}
     </header>
   );
 }

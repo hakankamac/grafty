@@ -16,7 +16,6 @@ export function Hero() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isInitialSlide = tick === 0;
   const leanMotion = isMobile || reduceMotion;
-  const mobileZoom = isMobile && !reduceMotion;
   const shouldAnimateText = !isInitialSlide && !leanMotion;
   const startAutoplay = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -67,34 +66,28 @@ export function Hero() {
             key={index}
             className="absolute inset-0 will-change-[opacity,transform]"
             initial={
-              mobileZoom
-                ? {
-                    opacity: isInitialSlide ? 1 : 0,
-                    scale: 1.02,
-                    x: 0,
-                  }
-                : isInitialSlide || leanMotion
+              isInitialSlide || leanMotion
                 ? { opacity: 1, scale: 1.04, x: 0 }
                 : { opacity: 0, scale: 1.03, x: 18 }
             }
             animate={{
               opacity: 1,
-              scale: mobileZoom ? 1.07 : leanMotion ? 1.04 : 1.075,
+              scale: leanMotion ? 1.04 : 1.035,
               x: 0,
             }}
             exit={{
               opacity: 0,
-              scale: mobileZoom ? 1.07 : 1.055,
+              scale: leanMotion ? 1.04 : 1.03,
               x: leanMotion ? 0 : -8,
             }}
             transition={{
               opacity: {
-                duration: mobileZoom ? 0.5 : leanMotion ? 0.45 : 0.8,
+                duration: leanMotion ? 0.35 : 0.65,
                 ease: EASING,
               },
-              x: { duration: leanMotion ? 0.45 : 0.85, ease: EASING },
+              x: { duration: leanMotion ? 0.35 : 0.65, ease: EASING },
               scale: {
-                duration: mobileZoom ? SLIDE_MS / 1000 : leanMotion ? 0.45 : 6.5,
+                duration: leanMotion ? 0.35 : 0.65,
                 ease: "easeOut",
               },
             }}
